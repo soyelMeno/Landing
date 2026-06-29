@@ -19,15 +19,20 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <h1 className="text-balance text-4xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.4rem]">
-          Diseñamos experiencias de audio
-          <br />
-          {/*para vehículos de alta gama.*/}
-        </h1>
-
-        <p className="mt-5 max-w-xl text-balance text-sm leading-relaxed text-muted sm:text-base">
-          Para vehículos de alta gama.
-        </p>
+        <h1 className="
+  max-w-4xl
+  text-5xl
+  md:text-7xl
+  lg:text-8xl
+  leading-[0.95]
+  tracking-tight
+">
+  Diseñamos experiencias de audio
+  <br />
+  <span className="text-zinc-300">
+    para vehículos excepcionales.
+  </span>
+</h1>
       </div>
 
       {/* Scroll cue */}
