@@ -24,39 +24,58 @@ export default function Section({
 
   return (
     <section
-      className={`py-20 sm:py-28 ${
-        isDark ? "bg-panel text-foreground" : "bg-[#f7f6f4] text-[#111111]"
+      className={`py-24 md:py-32 ${
+        isDark
+          ? "bg-panel text-foreground"
+          : "bg-[#f7f6f4] text-[#111111]"
       } ${className}`}
     >
       <Container>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
+
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+
+          <div className="max-w-2xl">
+
             {eyebrow && (
               <p
-                className={`eyebrow ${
+                className={`hidden md:block eyebrow ${
                   isDark ? "" : "text-muted opacity-80"
                 }`}
               >
                 {eyebrow}
               </p>
             )}
-            <h2 className="mt-2 text-2xl font-medium tracking-tight sm:text-3xl">
+
+            <h2 className="mt-2 text-3xl md:text-5xl font-light tracking-tight leading-tight">
               {title}
             </h2>
+
             {description && (
               <p
-                className={`mt-2 max-w-md text-sm leading-relaxed ${
-                  isDark ? "text-muted" : "text-neutral-500"
+                className={`mt-5 text-base leading-7 ${
+                  isDark
+                    ? "text-muted"
+                    : "text-neutral-500"
                 }`}
               >
                 {description}
               </p>
             )}
+
           </div>
-          {action && <div className="shrink-0">{action}</div>}
+
+          {action && (
+            <div className="self-start md:self-end">
+              {action}
+            </div>
+          )}
+
         </div>
 
-        <div className="mt-12">{children}</div>
+        <div className="mt-14 md:mt-16">
+          {children}
+        </div>
+
       </Container>
     </section>
   );

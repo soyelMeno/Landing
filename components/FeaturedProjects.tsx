@@ -11,7 +11,14 @@ export default function FeaturedProjects() {
       action={
         <Link
           href="/portfolio"
-          className="text-xs uppercase tracking-[0.14em] text-neutral-500 transition-colors hover:text-foreground hover:text-[#111111]"
+          className="
+text-sm
+uppercase
+tracking-[0.18em]
+text-neutral-500
+transition-colors
+hover:text-[#111111]
+"
         >
           Explorar Proyectos →
         </Link>
