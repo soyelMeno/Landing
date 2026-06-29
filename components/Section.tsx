@@ -37,18 +37,18 @@ export default function Section({
           <div className="max-w-2xl">
 
             {eyebrow && (
-              <p
-                className={`hidden md:block eyebrow ${
-                  isDark ? "" : "text-muted opacity-80"
-                }`}
-              >
-                {eyebrow}
-              </p>
-            )}
+  <p
+    className={`eyebrow ${
+      isDark ? "" : "text-muted opacity-80"
+    }`}
+  >
+    {eyebrow}
+  </p>
+)}
 
-            <h2 className="mt-2 text-3xl md:text-5xl font-light tracking-tight leading-tight">
-              {title}
-            </h2>
+<h2 className="hidden md:block mt-2 text-3xl md:text-5xl font-light tracking-tight leading-tight">
+  {title}
+</h2>
 
             {description && (
               <p
