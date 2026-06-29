@@ -18,22 +18,38 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <h1 className="
-  max-w-4xl
-  text-5xl
-  md:text-7xl
-  lg:text-8xl
-  leading-[0.95]
-  tracking-tight
+     <div className="
+  relative
+  z-10
+  -translate-y-25
+  mx-auto
+  flex
+  max-w-5xl
+  flex-col
+  items-center
+  px-6
+  text-center
 ">
-  Diseñamos experiencias de audio
-  <br />
-  <span className="text-zinc-300">
-    para vehículos excepcionales.
-  </span>
-</h1>
-      </div>
+  <h1 className="
+    max-w-3xl
+    text-3xl
+    sm:text-4xl
+    md:text-5xl
+    lg:text-6xl
+    font-light
+    tracking-tight
+    leading-[1.05]
+    text-white
+  ">
+    Diseñamos experiencias de audio para
+
+    <span className="block text-zinc-300">
+      vehículos excepcionales.
+    </span>
+
+  </h1>
+
+</div>
 
       {/* Scroll cue */}
       <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">

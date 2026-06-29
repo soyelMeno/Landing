@@ -47,7 +47,7 @@ export default function Atelier() {
           </article>
 
           <article className="space-y-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
   <Image
     src="/atelier/cajonpickup/cover.png"
     alt='Cajón acústico para pick up'
