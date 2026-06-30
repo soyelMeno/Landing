@@ -1,6 +1,25 @@
 import Section from "./Section";
 import Image from "next/image";
 import Link from "next/link";
+
+const atelierItems = [
+  {
+    image: "/atelier/cajon10/cover.png",
+    title: 'Cajón acústico 10"',
+    description: "Diseñado para máxima integración y desempeño.",
+  },
+  {
+    image: "/atelier/cajonpickup/cover.png",
+    title: 'Cajón acústico 12"',
+    description: "Soluciones específicas para camionetas.",
+  },
+  {
+    image: "/atelier/tapapuertas/cover.jpeg",
+    title: "Tapapuertas VW Sedán",
+    description:
+      "Materiales y acabados que respetan la identidad del vehículo.",
+  },
+];
 export default function Atelier() {
   return (
     <Section
@@ -17,185 +36,51 @@ export default function Atelier() {
     </Link>
   }
 >
-      <div
-    className="
-      flex
-      gap-6
-      overflow-x-auto
-      snap-x
-      snap-mandatory
-      no-scrollbar
-      px-6
-      -mx-6
-      lg:hidden
-    "
-  >
-    {/* Cards */}
+     <div
+  className="
+    flex
+    gap-6
+    overflow-x-auto
+    no-scrollbar
+    snap-x
+    snap-mandatory
+
+    px-6
+    -mx-6
+
+    lg:grid
+    lg:grid-cols-3
+    lg:gap-12
+    lg:overflow-visible
+    lg:px-0
+    lg:mx-0
+"
+>
+    {/* Mobile*/}
 {/* Cajón 10" */}
-        <article
-  className="
-    w-[285px]
-    shrink-0
-    snap-start
-    space-y-6
-  "
->
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
-              src="/atelier/cajon10/cover.png"
-              alt='Cajón acústico de 10 pulgadas'
-              fill
-              className="object-cover"
-            />
-          </div>
+      {atelierItems.map((item) => (
+    <article
+      key={item.title}
+      className="w-[285px] shrink-0 snap-start space-y-6"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          className="object-cover"
+        />
+      </div>
 
-          <h3 className="text-2xl font-light tracking-tight">
-            Cajón acústico 10"
-          </h3>
+      <h3 className="text-2xl font-light tracking-tight">
+        {item.title}
+      </h3>
 
-          <p className="leading-7 text-zinc-400">
-            Diseñado para máxima integración y desempeño.
-          </p>
-        </article>
-
-        {/* Cajón Pick Up */}
-        <article
-  className="
-    w-[285px]
-    shrink-0
-    snap-start
-    space-y-6
-  "
->
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
-              src="/atelier/cajonpickup/cover.jpeg"
-              alt="Cajón acústico para Pick Up"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <h3 className="text-2xl font-light tracking-tight">
-            Cajón acústico 12"
-          </h3>
-
-          <p className="leading-7 text-zinc-400">
-            Soluciones específicas para camionetas.
-          </p>
-        </article>
-
-        {/* Tapapuertas */}
-        <article
-  className="
-    w-[285px]
-    shrink-0
-    snap-start
-    space-y-6
-  "
->
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
-              src="/atelier/tapapuertas/cover.jpeg"
-              alt="Tapapuertas para VW Sedán"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <h3 className="text-2xl font-light tracking-tight">
-            Tapapuertas VW Sedán
-          </h3>
-
-          <p className="leading-7 text-zinc-400">
-            Materiales y acabados que respetan la identidad del vehículo.
-          </p>
-        </article>
-
-  </div>
-
-        <div className="hidden lg:grid lg:grid-cols-3 gap-12">
-    {/* Cards */}
-    {/* Cajón 10" */}
-        <article
-  className="
-    w-[285px]
-    shrink-0
-    snap-start
-    space-y-6
-  "
->
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
-              src="/atelier/cajon10/cover.png"
-              alt='Cajón acústico de 10 pulgadas'
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <h3 className="text-2xl font-light tracking-tight">
-            Cajón acústico 10"
-          </h3>
-
-          <p className="leading-7 text-zinc-400">
-            Diseñado para máxima integración y desempeño.
-          </p>
-        </article>
-
-        {/* Cajón Pick Up */}
-        <article
-  className="
-    w-[285px]
-    shrink-0
-    snap-start
-    space-y-6
-  "
->
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
-              src="/atelier/cajonpickup/cover.jpeg"
-              alt="Cajón acústico para Pick Up"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <h3 className="text-2xl font-light tracking-tight">
-            Cajón acústico 12"
-          </h3>
-
-          <p className="leading-7 text-zinc-400">
-            Soluciones específicas para camionetas.
-          </p>
-        </article>
-
-        {/* Tapapuertas */}
-        <article
-  className="
-    w-[285px]
-    shrink-0
-    snap-start
-    space-y-6
-  "
->
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
-              src="/atelier/tapapuertas/cover.jpeg"
-              alt="Tapapuertas para VW Sedán"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <h3 className="text-2xl font-light tracking-tight">
-            Tapapuertas VW Sedán
-          </h3>
-
-          <p className="leading-7 text-zinc-400">
-            Materiales y acabados que respetan la identidad del vehículo.
-          </p>
-        </article>
+      <p className="leading-7 text-zinc-400">
+        {item.description}
+      </p>
+    </article>
+  ))}
   </div>
     </Section>
   );
