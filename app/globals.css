@@ -32,3 +32,13 @@ body {
   font-size: 1.3rem;
   color: var(--accent);
 }
+
+/* Oculta la barra de scroll horizontal */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
