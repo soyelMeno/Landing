@@ -23,10 +23,12 @@ const atelierItems = [
 export default function Atelier() {
   return (
     <Section
-  eyebrow="ATELIER"
+     eyebrow="ATELIER"
   title="Donde el detalle importa."
   description="Piezas desarrolladas con la misma filosofía que aplicamos en cada proyecto."
   tone="dark"
+  hideTitleOnMobile
+  mobileLayout
   action={
     <Link
       href="/atelier"

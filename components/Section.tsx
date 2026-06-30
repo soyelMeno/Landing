@@ -9,8 +9,10 @@ type SectionProps = {
   tone?: "light" | "dark";
   children: ReactNode;
   className?: string;
-};
 
+  hideTitleOnMobile?: boolean;
+  mobileLayout?: boolean;
+};
 export default function Section({
   eyebrow,
   title,
@@ -19,6 +21,8 @@ export default function Section({
   tone = "light",
   children,
   className = "",
+  hideTitleOnMobile = false,
+  mobileLayout=false
 }: SectionProps) {
   const isDark = tone === "dark";
 
@@ -38,15 +42,27 @@ export default function Section({
 
             {eyebrow && (
               <p
-                className={`hidden md:block eyebrow ${
-                  isDark ? "" : "text-muted opacity-80"
-                }`}
-              >
-                {eyebrow}
-              </p>
+  className={`
+    eyebrow
+    ${mobileLayout ? "block" : "hidden md:block"}
+    ${isDark ? "" : "text-muted opacity-80"}
+  `}
+>
+  {eyebrow}
+</p>
             )}
 
-            <h2 className="mt-2 text-3xl md:text-5xl font-light tracking-tight leading-tight">
+            <h2
+  className={`
+    mt-2
+    text-2xl
+    sm:text-3xl
+    font-medium
+    tracking-tight
+
+    ${hideTitleOnMobile ? "hidden sm:block" : ""}
+  `}
+>
               {title}
             </h2>
 

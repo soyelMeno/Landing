@@ -8,6 +8,8 @@ export default function FeaturedProjects() {
     <Section
       eyebrow="Proyectos"
       title="Proyectos destacados"
+      hideTitleOnMobile
+      mobileLayout
       action={
         <Link
           href="/portfolio"
