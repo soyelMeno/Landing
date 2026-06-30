@@ -9,7 +9,7 @@ const atelierItems = [
     description: "Diseñado para máxima integración y desempeño.",
   },
   {
-    image: "/atelier/cajonpickup/cover.png",
+    image: "/atelier/cajonpickup/cover.jpeg",
     title: 'Cajón acústico 12"',
     description: "Soluciones específicas para camionetas.",
   },
