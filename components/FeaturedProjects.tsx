@@ -30,7 +30,7 @@ hover:text-[#111111]
         {featuredProjects.map((project) => (
           <ProjectCard
             key={project.slug}
-            image={project.image}
+            image={project.coverImage}
             title={project.title}
             subtitle={project.subtitle}
           />
