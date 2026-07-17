@@ -64,7 +64,7 @@ export const projects: Project[] = [
     slug: "mustang-86",
 
     // Hero
-    coverImage: "/projects/mustang/cover.jpeg",
+    coverImage: "/projects/mustang/cover2.jpg",
     tags: ["CLÁSICO", "OEM+", "INTEGRACIÓN"],
     title: "Mustang 86",
     subtitle: "Integración y restauración",
