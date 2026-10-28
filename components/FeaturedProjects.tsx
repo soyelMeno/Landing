@@ -7,22 +7,13 @@ export default function FeaturedProjects() {
   return (
     <Section
       eyebrow="Proyectos"
-      title="Proyectos destacados"
-      hideTitleOnMobile
-      mobileLayout
+      title="Featured Projects"
       action={
         <Link
           href="/portfolio"
-          className="
-text-sm
-uppercase
-tracking-[0.18em]
-text-neutral-500
-transition-colors
-hover:text-[#111111]
-"
+          className="text-xs uppercase tracking-[0.14em] text-neutral-500 transition-colors hover:text-foreground hover:text-[#111111]"
         >
-          Explorar Proyectos →
+          View All Work →
         </Link>
       }
     >
@@ -33,6 +24,7 @@ hover:text-[#111111]
             image={project.coverImage}
             title={project.title}
             subtitle={project.subtitle}
+            href={`/portfolio/${project.slug}`}
           />
         ))}
       </div>

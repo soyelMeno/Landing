@@ -1,34 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 const LINKS = [
-  { href: "/about", label: "Nosotros" },
-  { href: "/portfolio", label: "Proyectos" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/atelier", label: "Atelier" },
-  { href: "/services", label: "Formación" },
-  { href: "/process", label: "FAQs" },
-  { href: "/project", label: "Tu Proyecto" },
+  { href: "/services", label: "Services" },
+  { href: "/process", label: "Process" },
+  { href: "/about", label: "About" },
 ];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-return (
-    <header
-      className={`sticky top-0 z-50 transition-colors duration-300 bg-background/80 backdrop-blur-md ${
-        scrolled
-          ? "min-[790px]:bg-background/80 min-[790px]:backdrop-blur-md"
-          : "min-[790px]:bg-gradient-to-t min-[790px]:from-transparent min-[790px]:to-black/90 min-[790px]:backdrop-blur-none"
-      }`}
-    >      {/*
+  return (
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md">
+      {/*
         Mobile (<790px): 3-column grid — hamburger | logo (centered) | spacer
         Desktop (>=790px): flex — logo left, links right
       */}
