@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import { getAllSlugs, getProjectBySlug, getProjectCard } from "../../../data/projects";
-import ProjectHero from "../../../components/ProjectHero";
-import ProjectGallery from "../../../components/ProjectGallery";
-import RelatedProjects from "../../../components/RelatedProjects";
+import { getAllSlugs, getProjectBySlug, getProjectCard } from "../../data/projects";
+import ProjectHero from "../../components/ProjectHero";
+import ProjectGallery from "../../components/ProjectGallery";
+import RelatedProjects from "../../components/RelatedProjects";
 
 // Genera todas las páginas en build time
 export function generateStaticParams() {
