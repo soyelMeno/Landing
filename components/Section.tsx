@@ -9,6 +9,8 @@ type SectionProps = {
   tone?: "light" | "dark";
   children: ReactNode;
   className?: string;
+  hideTitleOnMobile?: boolean;
+  mobileLayout?: boolean;
 };
 
 export default function Section({
@@ -19,8 +21,11 @@ export default function Section({
   tone = "light",
   children,
   className = "",
+  hideTitleOnMobile = false,
+  mobileLayout = false,
 }: SectionProps) {
   const isDark = tone === "dark";
+  
 
   return (
     <section
