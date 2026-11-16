@@ -4,16 +4,19 @@ import Link from "next/link";
 
 const atelierItems = [
   {
+    slug: "SUB-002",
     image: "/atelier/cajon10/cover.png",
     title: 'Cajón acústico 10"',
     description: "Diseñado para máxima integración y desempeño.",
   },
   {
+    slug: "SUB-001",
     image: "/atelier/cajonpickup/cover.jpeg",
     title: 'Cajón acústico 12"',
     description: "Soluciones específicas para camionetas.",
   },
   {
+    slug: "VW-001",
     image: "/atelier/tapapuertas/cover.jpeg",
     title: "Tapapuertas VW Sedán",
     description:
@@ -61,27 +64,28 @@ export default function Atelier() {
     {/* Mobile*/}
 {/* Cajón 10" */}
       {atelierItems.map((item) => (
-    <article
-      key={item.title}
-      className="w-[285px] shrink-0 snap-start space-y-6"
+    <Link
+      key={item.slug}
+      href={`/atelier/${item.slug}`}
+      className="group w-[285px] shrink-0 snap-start space-y-6 lg:w-auto"
     >
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
         <Image
           src={item.image}
           alt={item.title}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 
-      <h3 className="text-2xl font-light tracking-tight">
+      <h3 className="text-2xl font-light tracking-tight group-hover:text-[var(--accent)] transition-colors">
         {item.title}
       </h3>
 
       <p className="leading-7 text-zinc-400">
         {item.description}
       </p>
-    </article>
+    </Link>
   ))}
   </div>
     </Section>
