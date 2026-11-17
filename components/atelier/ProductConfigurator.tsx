@@ -1,6 +1,7 @@
 "use client";
 
-import { getColorPrincipal, getAcento, type Product } from "../../data/products";
+import type { Product } from "../../data/products";
+import { getColorPrincipal, getAcento, getCombinacion } from "../../data/products";
 
 interface Props {
   product: Product;
@@ -8,6 +9,11 @@ interface Props {
   selectedAcentoId: string | null;
   onColorChange: (id: string) => void;
   onAcentoChange: (id: string | null) => void;
+}
+
+function formatDelta(n: number): string {
+  if (n === 0) return "Estándar";
+  return `+ $${n.toLocaleString("es-MX")}`;
 }
 
 export default function ProductConfigurator({
@@ -23,38 +29,55 @@ export default function ProductConfigurator({
   if (!hasColores && !hasAcentos) return null;
 
   return (
-    <div className="space-y-5">
-      {/* ── Color principal ───────────────────── */}
+    <div className="flex flex-col gap-6 border-t border-[var(--line)] pt-6">
+      {/* Color principal */}
       {hasColores && (
         <div>
-          <p className="mb-2 text-xs uppercase tracking-widest text-muted">
-            Color principal
-          </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="mb-3 flex items-center justify-between">
+            <label className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              1. Color principal (cuerpo):
+            </label>
+            <span className="text-xs font-semibold text-[var(--accent)]">
+              {getColorPrincipal(selectedColorId)?.label}
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-2.5">
             {product.coloresPrincipalesIds.map((id) => {
               const color = getColorPrincipal(id);
               if (!color) return null;
               const isActive = selectedColorId === id;
+              // busca el delta en combinaciones
+              const comb = getCombinacion(product, id, selectedAcentoId);
+              const delta = comb?.precioDelta ?? 0;
               return (
                 <button
                   key={id}
                   type="button"
                   onClick={() => onColorChange(id)}
-                  title={color.label}
-                  aria-label={color.label}
                   className={[
-                    "relative flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-all",
+                    "flex items-center gap-2 rounded-xl border-2 p-2.5 text-left transition-all",
                     isActive
-                      ? "border-[var(--accent)] text-[var(--accent)]"
-                      : "border-[var(--line)] text-muted hover:border-foreground/30 hover:text-foreground",
+                      ? "border-[var(--accent)] bg-[var(--panel)]"
+                      : "border-[var(--line)] bg-[var(--panel)] hover:border-white/30",
                   ].join(" ")}
                 >
-                  {/* Swatch de color */}
                   <span
-                    className="h-3.5 w-3.5 shrink-0 rounded-full border border-white/20"
+                    className="h-5 w-5 shrink-0 rounded-full border border-white/20"
                     style={{ backgroundColor: color.hex }}
                   />
-                  {color.label}
+                  <div className="min-w-0 overflow-hidden">
+                    <span className="block truncate text-xs font-semibold text-foreground">
+                      {color.label}
+                    </span>
+                    <span
+                      className={[
+                        "block text-[10px]",
+                        delta > 0 ? "font-medium text-[var(--accent)]" : "text-muted",
+                      ].join(" ")}
+                    >
+                      {formatDelta(delta)}
+                    </span>
+                  </div>
                 </button>
               );
             })}
@@ -62,13 +85,18 @@ export default function ProductConfigurator({
         </div>
       )}
 
-      {/* ── Acento ───────────────────────────── */}
+      {/* Acento */}
       {hasAcentos && (
         <div>
-          <p className="mb-2 text-xs uppercase tracking-widest text-muted">
-            Acento
-          </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="mb-3 flex items-center justify-between">
+            <label className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              2. Acento &amp; tornillería:
+            </label>
+            <span className="text-xs font-medium text-muted">
+              {selectedAcentoId ? getAcento(selectedAcentoId)?.label : "Sin acento"}
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-2.5">
             {product.acentosIds.map((id) => {
               const acento = getAcento(id);
               if (!acento) return null;
@@ -78,20 +106,20 @@ export default function ProductConfigurator({
                   key={id}
                   type="button"
                   onClick={() => onAcentoChange(id)}
-                  title={acento.label}
-                  aria-label={acento.label}
                   className={[
-                    "relative flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-all",
+                    "flex items-center gap-2 rounded-xl border-2 p-2.5 text-left transition-all",
                     isActive
-                      ? "border-[var(--accent)] text-[var(--accent)]"
-                      : "border-[var(--line)] text-muted hover:border-foreground/30 hover:text-foreground",
+                      ? "border-[var(--accent)] bg-[var(--panel)]"
+                      : "border-[var(--line)] bg-[var(--panel)] hover:border-white/30",
                   ].join(" ")}
                 >
                   <span
-                    className="h-3.5 w-3.5 shrink-0 rounded-full border border-white/20"
+                    className="h-5 w-5 shrink-0 rounded-full border border-white/20"
                     style={{ backgroundColor: acento.hex }}
                   />
-                  {acento.label}
+                  <span className="truncate text-xs font-semibold text-foreground">
+                    {acento.label}
+                  </span>
                 </button>
               );
             })}

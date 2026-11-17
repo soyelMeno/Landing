@@ -8,82 +8,87 @@ interface Props {
   productName: string;
 }
 
+const viewLabels = ["Perspectiva", "Macro", "Bronce", "Blueprint"];
+const viewSub    = ["3/4 Frontal", "Detalle", "Acabado", "CAD Billet"];
+
 export default function ProductGallery({ images, productName }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
-  // Resetear al índice 0 cuando cambian las imágenes (cambio de combinación)
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [images]);
+  useEffect(() => { setActiveIndex(0); }, [images]);
 
-  function handleTouchStart(e: React.TouchEvent) {
+  const prev = () => setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+  const next = () => setActiveIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+
+  const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
-  }
-
-  function handleTouchEnd(e: React.TouchEvent) {
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const delta = e.changedTouches[0].clientX - touchStartX.current;
-    if (Math.abs(delta) < 40) return;
-    if (delta < 0) setActiveIndex((i) => Math.min(i + 1, images.length - 1));
-    else setActiveIndex((i) => Math.max(i - 1, 0));
+    if (Math.abs(delta) > 40) delta < 0 ? next() : prev();
     touchStartX.current = null;
-  }
+  };
 
-  function prev() {
-    setActiveIndex((i) => Math.max(i - 1, 0));
-  }
+  if (images.length === 0) return null;
 
-  function next() {
-    setActiveIndex((i) => Math.min(i + 1, images.length - 1));
-  }
-
-  const hasPrev = activeIndex > 0;
-  const hasNext = activeIndex < images.length - 1;
+  const current = images[activeIndex];
+  const currentLabel = viewLabels[activeIndex] ?? `Vista ${activeIndex + 1}`;
+  const currentSub   = viewSub[activeIndex] ?? "";
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* ── Imagen principal ─────────────────────── */}
+    <div className="flex flex-col gap-3">
+      {/* ── Imagen principal ── */}
       <div
-        className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[var(--panel)]"
+        className="group relative w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--panel)] min-[790px]:rounded-2xl"
+        style={{ aspectRatio: "4/3" }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
+        {/* Badge editorial */}
+        <div className="absolute left-3 top-3 z-20 flex items-center gap-2 min-[790px]:left-5 min-[790px]:top-5">
+          <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/80 px-3 py-1.5 backdrop-blur-md">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground" id="gallery-badge-label">
+              {productName}
+            </span>
+          </span>
+        </div>
+
+        {/* Degradado inferior */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
         <Image
-          key={images[activeIndex]}
-          src={images[activeIndex]}
-          alt={`${productName} — vista ${activeIndex + 1}`}
+          key={current}
+          src={current}
+          alt={`${productName} — ${currentLabel}`}
           fill
-          className="object-cover"
-          sizes="(max-width: 790px) 100vw, 55vw"
+          sizes="(min-width: 790px) 60vw, 100vw"
+          className="object-cover transition-all duration-700 ease-out"
           priority={activeIndex === 0}
         />
 
-        {/* Caption */}
-        <div className="absolute bottom-4 left-4 rounded-full bg-black/60 px-3 py-1 text-[10px] uppercase tracking-widest text-white backdrop-blur-sm">
-          VISTA {String(activeIndex + 1).padStart(2, "0")} // {images.length}/{images.length}
+        {/* Vista actual — esquina inferior derecha */}
+        <div className="absolute bottom-3 right-3 z-20 rounded bg-black/80 px-2.5 py-1 backdrop-blur-md">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">
+            Vista {String(activeIndex + 1).padStart(2, "0")} // {currentSub}
+          </span>
         </div>
 
         {/* Flechas — solo desktop */}
         {images.length > 1 && (
-          <div className="absolute right-4 bottom-4 hidden gap-2 min-[790px]:flex">
-            <button
-              onClick={prev}
-              disabled={!hasPrev}
-              aria-label="Imagen anterior"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-opacity disabled:opacity-30 hover:bg-black/80"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="absolute bottom-3 right-3 z-20 hidden items-center gap-2 min-[790px]:flex min-[790px]:bottom-5 min-[790px]:right-5">
+            <button type="button" onClick={prev}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/70 text-white backdrop-blur-md transition-all hover:border-white/40 hover:bg-black/90"
+              aria-label="Imagen anterior">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
-            <button
-              onClick={next}
-              disabled={!hasNext}
-              aria-label="Imagen siguiente"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-opacity disabled:opacity-30 hover:bg-black/80"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button type="button" onClick={next}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/70 text-white backdrop-blur-md transition-all hover:border-white/40 hover:bg-black/90"
+              aria-label="Imagen siguiente">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
@@ -91,34 +96,105 @@ export default function ProductGallery({ images, productName }: Props) {
         )}
       </div>
 
-      {/* ── Miniaturas ───────────────────────────── */}
       {images.length > 1 && (
-        <div className="flex gap-3 overflow-x-auto pb-1 no-scrollbar">
-          {images.map((src, i) => (
-            <button
-              key={src}
-              onClick={() => setActiveIndex(i)}
-              aria-label={`Ver imagen ${i + 1}`}
-              className={[
-                "relative aspect-[4/3] w-20 shrink-0 overflow-hidden rounded-lg transition-all",
-                i === activeIndex
-                  ? "ring-2 ring-[var(--accent)] ring-offset-2 ring-offset-black"
-                  : "opacity-50 hover:opacity-80",
-              ].join(" ")}
-            >
-              <Image
-                src={src}
-                alt={`${productName} miniatura ${i + 1}`}
-                fill
-                className="object-cover"
-                sizes="80px"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-white">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-            </button>
-          ))}
-        </div>
+        <>
+          {/* ── Pills indicadores — solo móvil ── */}
+          <div className="flex items-center gap-1.5 min-[790px]:hidden">
+            {images.map((_, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  className={[
+                    "flex-1 rounded py-1.5 text-center transition-all",
+                    isActive
+                      ? "bg-[var(--accent)]/20 text-[var(--accent)]"
+                      : "bg-[var(--panel)] text-muted",
+                  ].join(" ")}
+                >
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.12em]">
+                    {viewLabels[i] ?? `0${i + 1}`}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ── Thumbnails scroll horizontal — móvil ── */}
+          <div className="flex gap-2.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[790px]:hidden">
+            {images.map((src, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  className={[
+                    "flex w-24 shrink-0 flex-col gap-1.5 rounded-lg p-1.5 text-left transition-all",
+                    "bg-[var(--panel)]",
+                    isActive ? "opacity-100" : "opacity-60 hover:opacity-100",
+                  ].join(" ")}
+                >
+                  <div className="relative h-16 w-full overflow-hidden rounded bg-black/40">
+                    <Image
+                      src={src}
+                      alt={viewLabels[i] ?? `Vista ${i + 1}`}
+                      fill
+                      sizes="96px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-foreground px-0.5">
+                    {String(i + 1).padStart(2, "0")} {viewLabels[i] ?? ""}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ── Thumbnails grid — solo desktop ── */}
+          <div className="hidden min-[790px]:grid grid-cols-4 gap-3">
+            {images.map((src, i) => {
+              const isActive = i === activeIndex;
+              const label = viewLabels[i] ?? `Vista ${i + 1}`;
+              const sub   = viewSub[i] ?? "";
+              return (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  className={[
+                    "group overflow-hidden rounded-xl border-2 p-2.5 text-left transition-all bg-[var(--panel)]",
+                    isActive
+                      ? "border-[var(--accent)]"
+                      : "border-[var(--line)] hover:border-white/30",
+                  ].join(" ")}
+                >
+                  <div className="relative mb-2 aspect-[4/3] overflow-hidden rounded-lg bg-black/40">
+                    <Image
+                      src={src}
+                      alt={label}
+                      fill
+                      sizes="15vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-semibold text-foreground">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[9px] font-semibold uppercase tracking-wider text-muted">
+                      {sub}
+                    </span>
+                  </div>
+                  <p className="mt-0.5 truncate text-[10px] text-muted">{label}</p>
+                </button>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );

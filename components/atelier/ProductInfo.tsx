@@ -19,21 +19,30 @@ export default function ProductInfo({
   onAcentoChange,
 }: Props) {
   return (
-    <div className="flex flex-col gap-6">
-      {/* ID */}
-      <p className="font-mono text-xs text-muted">{product.slug}</p>
-
-      {/* Nombre + descripción */}
-      <div>
-        <h1 className="text-3xl font-semibold leading-tight tracking-tight text-foreground min-[790px]:text-4xl">
-          {product.nombre}
-        </h1>
-        <p className="mt-3 text-sm leading-relaxed text-muted">
-          {product.descripcionBreve}
-        </p>
+    <div className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-7 shadow-2xl min-[790px]:sticky min-[790px]:top-28">
+      {/* Slug + serie */}
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="rounded bg-white/5 border border-[var(--line)] px-2.5 py-1 text-xs font-semibold tracking-wider text-[var(--accent)]">
+            {product.slug}
+          </span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">
+            Serie Atelier
+          </span>
+        </div>
       </div>
 
-      {/* Configurador — solo visible en desktop (en móvil está el MobileConfigurator arriba) */}
+      {/* Nombre */}
+      <h1 className="text-2xl font-bold uppercase tracking-tight text-foreground min-[790px]:text-3xl">
+        {product.nombre}
+      </h1>
+
+      {/* Descripción */}
+      <p className="mt-3 text-xs leading-relaxed text-muted">
+        {product.descripcionBreve}
+      </p>
+
+      {/* Configurador (oculto en móvil — aparece arriba como MobileConfigurator) */}
       <div className="hidden min-[790px]:block">
         <ProductConfigurator
           product={product}
