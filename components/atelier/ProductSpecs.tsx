@@ -6,7 +6,7 @@ interface Props {
   specs: Especificaciones;
 }
 
-type SpecRow = { label: string; value: string | null };
+type SpecRow = { label: string; valor: string | null };
 
 // ── Accordeon (móvil) ──────────────────────────────────────────
 function SpecAccordion({
@@ -43,9 +43,9 @@ function SpecAccordion({
             <span className="text-[10px] font-semibold uppercase tracking-widest text-muted">
               {row.label}
             </span>
-            {row.value ? (
+            {row.valor ? (
               <span className="mt-0.5 text-[12px] font-semibold text-foreground">
-                {row.value}
+                {row.valor}
               </span>
             ) : (
               <span className="mt-0.5 text-[12px] italic text-muted/50">Pendiente</span>
