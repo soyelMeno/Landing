@@ -81,8 +81,8 @@ function SpecCard({
         {rows.map((row) => (
           <li key={row.label} className="flex justify-between border-b border-[var(--line)] pb-2 last:border-0 last:pb-0">
             <span className="text-xs font-medium text-muted">{row.label}:</span>
-            {row.value ? (
-              <span className="ml-4 text-right text-xs font-medium text-foreground">{row.value}</span>
+            {row.valor ? (
+              <span className="ml-4 text-right text-xs font-medium text-foreground">{row.valor}</span>
             ) : (
               <span className="ml-4 text-right text-xs italic text-muted/50">Pendiente</span>
             )}
