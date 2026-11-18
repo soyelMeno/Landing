@@ -7,13 +7,13 @@ export default function FeaturedProjects() {
   return (
     <Section
       eyebrow="Proyectos"
-      title="Featured Projects"
+      title="Poryectos relacionados"
       action={
         <Link
           href="/portfolio"
           className="text-xs uppercase tracking-[0.14em] text-neutral-500 transition-colors hover:text-foreground hover:text-[#111111]"
         >
-          View All Work →
+          Ver todo el Portafolio →
         </Link>
       }
     >
