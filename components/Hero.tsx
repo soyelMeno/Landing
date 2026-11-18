@@ -20,14 +20,14 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
         <h1 className="text-balance text-4xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.4rem]">
-          Designing audio experiences
+          Diseñando experiencias de audio
           <br />
-          for exceptional vehicles.
+          para vehículos excepcionales.
         </h1>
 
         <p className="mt-5 max-w-xl text-balance text-sm leading-relaxed text-muted sm:text-base">
-          High-fidelity integration, custom fabrication, and bespoke
-          automotive sound solutions for the discerning enthusiast.
+          Integración de alta fidelidad, fabricación personalizada y 
+          soluciones de sonido a medida para el entusiasta exigente.
         </p>
       </div>
 
